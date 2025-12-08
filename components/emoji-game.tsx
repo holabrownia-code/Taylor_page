@@ -141,31 +141,46 @@ export default function EmojiGame() {
   // --- DIFFICULTY VIEW ---
   if (gameView === "difficulty") {
     return (
-      <div className="min-h-[40vh]">
+      <div className="min-h-[40vh] flex flex-col items-center justify-center">
         <div className="text-center mb-8">
-          <h1 className="text-3xl md:text-4xl font-bold text-white mb-2">{t.title}</h1>
-          <p className="text-white/90 max-w-2xl mx-auto">{t.subtitle}</p>
+          <h1 className="text-5xl md:text-7xl font-black italic text-white mb-0 tracking-tighter uppercase">EMOJI ERA</h1>
+          <p className="text-orange-400 text-3xl md:text-5xl font-bold italic lowercase -mt-2" style={{ fontFamily: "cursive" }}>
+            guessing
+          </p>
+          <p className="text-white/80 mt-6 max-w-xl mx-auto">{t.subtitle}</p>
         </div>
 
-        <Card className="p-6 md:p-10 bg-white/10 backdrop-blur-md max-w-3xl mx-auto">
-          <div className="text-center mb-6">
-            <Filter className="h-10 w-10 mx-auto text-white mb-3" />
-            <h2 className="text-2xl font-semibold text-white">{t.selectDifficulty}</h2>
+        <Card className="p-8 bg-white/10 backdrop-blur-md w-full max-w-4xl mx-auto border-white/20 shadow-2xl rounded-3xl">
+          <div className="flex flex-col items-center mb-8">
+            <Filter className="h-8 w-8 text-white mb-2" />
+            <h2 className="text-xl font-semibold text-white uppercase tracking-wider">{t.selectDifficulty}</h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Button onClick={() => handleDifficultySelect("Facil")} className="h-20 text-lg bg-green-500 hover:bg-green-600 text-white">
-              😊 {t.easy}
-            </Button>
-            <Button onClick={() => handleDifficultySelect("Medio")} className="h-20 text-lg bg-yellow-500 hover:bg-yellow-600 text-white">
-              🤔 {t.medium}
-            </Button>
-            <Button onClick={() => handleDifficultySelect("Dificil")} className="h-20 text-lg bg-red-500 hover:bg-red-600 text-white">
-              🔥 {t.hard}
-            </Button>
-            <Button onClick={() => handleDifficultySelect("Aleatorio")} className="h-20 text-lg bg-purple-500 hover:bg-purple-600 text-white">
-              🎲 {t.random}
-            </Button>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full px-4">
+            <button
+              onClick={() => handleDifficultySelect("Facil")}
+              className="transition-transform hover:scale-105 active:scale-95 focus:outline-none"
+            >
+              <img src="/images/emoji-era/beginner.png" alt={t.easy} className="w-full h-auto drop-shadow-lg" />
+            </button>
+            <button
+              onClick={() => handleDifficultySelect("Medio")}
+              className="transition-transform hover:scale-105 active:scale-95 focus:outline-none"
+            >
+              <img src="/images/emoji-era/midnights-master.png" alt={t.medium} className="w-full h-auto drop-shadow-lg" />
+            </button>
+            <button
+              onClick={() => handleDifficultySelect("Dificil")}
+              className="transition-transform hover:scale-105 active:scale-95 focus:outline-none"
+            >
+              <img src="/images/emoji-era/expert.png" alt={t.hard} className="w-full h-auto drop-shadow-lg" />
+            </button>
+            <button
+              onClick={() => handleDifficultySelect("Aleatorio")}
+              className="transition-transform hover:scale-105 active:scale-95 focus:outline-none"
+            >
+              <img src="/images/emoji-era/random.png" alt={t.random} className="w-full h-auto drop-shadow-lg" />
+            </button>
           </div>
         </Card>
       </div>
