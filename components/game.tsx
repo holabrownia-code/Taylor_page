@@ -11,7 +11,7 @@ import { getRandomQuestions } from "@/data/questions"
 type Country =
   | "debut"
   | "fearless"
-  | "speak-now"
+  | "speaknow"
   | "red"
   | "1989"
   | "reputation"
@@ -135,9 +135,10 @@ export default function Game({ country, difficulty, onGameComplete, onBackToHome
       const timer = setTimeout(() => setTimeLeft((prev) => prev - 1), 1000)
       return () => clearTimeout(timer)
     } else if (timeLeft === 0 && !showFeedback) {
-      // Time's up - this is incorrect, don't increment correctAnswers
+      // Time's up - this is incorrect
       setShowFeedback(true)
       setIsCorrect(false)
+      // No points for running out of time
 
       console.log("Time up for question:", currentQuestionIndex)
 
@@ -145,7 +146,7 @@ export default function Game({ country, difficulty, onGameComplete, onBackToHome
         nextQuestion()
       }, 2000)
     }
-  }, [timeLeft, showFeedback, nextQuestion])
+  }, [timeLeft, showFeedback, nextQuestion, currentQuestionIndex])
 
   const getAnswerButtonClass = (index: number) => {
     if (!showFeedback) {

@@ -349,7 +349,7 @@ export default function PlayPage() {
                     className="w-full bg-yellow-50 hover:bg-yellow-100 text-yellow-700 border-yellow-200 hover:border-yellow-300 hover:shadow-md transition-all duration-300 font-semibold py-3 rounded-lg group-hover:scale-105"
                   >
                     <Star className="h-4 w-4 mr-2 fill-current" />
-                    {t.medium}
+                    {t.intermediate}
                   </Button>
 
                   <Button

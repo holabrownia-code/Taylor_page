@@ -34,7 +34,7 @@ export default function Home() {
               className="w-full h-auto drop-shadow-[0_0_15px_rgba(236,72,153,0.3)]"
             />
           </div>
-          <p className="text-gray-300 text-xl font-medium tracking-wide">Pon a prueba tu conocimiento Swiftie</p>
+          <p className="text-gray-300 text-xl font-medium tracking-wide">{t.testKnowledgeTitle}</p>
         </header>
 
         {/* Game Selection Cards */}
@@ -68,29 +68,29 @@ export default function Home() {
             <div className="bg-pink-500/20 p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center group-hover:bg-pink-500/30 transition-colors">
               <Music className="w-10 h-10 text-pink-400" />
             </div>
-            <h3 className="text-2xl font-bold mb-2 text-white">12 Eras</h3>
-            <p className="text-gray-400">Explora todas las eras de Taylor</p>
+            <h3 className="text-2xl font-bold mb-2 text-white">{t.countriesCount}</h3>
+            <p className="text-gray-400">{t.countriesDesc}</p>
           </div>
           <div className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl text-center transform hover:-translate-y-2 transition-all duration-300 hover:bg-white/10 group">
             <div className="bg-purple-500/20 p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center group-hover:bg-purple-500/30 transition-colors">
               <Users className="w-10 h-10 text-purple-400" />
             </div>
-            <h3 className="text-2xl font-bold mb-2 text-white">300+ Preguntas</h3>
-            <p className="text-gray-400">Contenido sobre música y cultura pop</p>
+            <h3 className="text-2xl font-bold mb-2 text-white">{t.questionsCount}</h3>
+            <p className="text-gray-400">{t.questionsDesc}</p>
           </div>
           <div className="bg-white/5 backdrop-blur-md border border-white/10 p-8 rounded-2xl text-center transform hover:-translate-y-2 transition-all duration-300 hover:bg-white/10 group">
             <div className="bg-indigo-500/20 p-4 rounded-full w-20 h-20 mx-auto mb-6 flex items-center justify-center group-hover:bg-indigo-500/30 transition-colors">
               <Trophy className="w-10 h-10 text-indigo-400" />
             </div>
-            <h3 className="text-2xl font-bold mb-2 text-white">3 Niveles</h3>
-            <p className="text-gray-400">Desde principiante hasta Swiftie experto</p>
+            <h3 className="text-2xl font-bold mb-2 text-white">{t.levelsCount}</h3>
+            <p className="text-gray-400">{t.levelsDesc}</p>
           </div>
         </div>
 
         {/* Feedback Section */}
         <div className="max-w-4xl mx-auto mb-20">
           <div className="flex items-center gap-4 mb-8">
-            <h2 className="text-4xl font-black italic font-serif">¿Más juegos?</h2>
+            <h2 className="text-4xl font-black italic font-serif">{t.moreGames}</h2>
             <div className="h-0.5 flex-grow bg-gradient-to-r from-white/50 to-transparent"></div>
           </div>
 
@@ -99,22 +99,22 @@ export default function Home() {
             <div className="absolute bottom-0 left-0 -mb-10 -ml-10 w-40 h-40 bg-purple-500/20 rounded-full blur-3xl"></div>
 
             <div className="relative z-10">
-              <h3 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">¡Tus Ideas Hacen la Magia!</h3>
+              <h3 className="text-2xl font-bold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400">{t.yourIdeas}</h3>
               <p className="text-gray-300 mb-6 text-lg leading-relaxed">
-                Esta página es para Swifties, hecha por Swifties. Queremos saber de ti:
+                {t.feedbackIntro}
               </p>
               <ul className="space-y-3 text-gray-400 mb-8 ml-2">
                 <li className="flex items-start">
                   <span className="mr-2 text-pink-500">•</span>
-                  ¿Cómo podemos mejorar la Trivia y el juego de Emojis?
+                  {t.feedbackQ1}
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2 text-purple-500">•</span>
-                  <span>¿Qué nuevos tipos de juegos te gustaría que agreguemos? <span className="text-gray-500 italic">(¿Un Memory Game? ¿Adivinar la letra? ¿Un Ranking de canciones?)</span></span>
+                  <span>{t.feedbackQ2} <span className="text-gray-500 italic">{t.feedbackQ2Sub}</span></span>
                 </li>
               </ul>
               <p className="text-gray-300 mb-8 font-medium">
-                ¡Gracias por ser parte del Mastermind de esta página! <Sparkles className="inline w-5 h-5 text-yellow-400 animate-pulse" />
+                {t.thanks} <Sparkles className="inline w-5 h-5 text-yellow-400 animate-pulse" />
               </p>
 
               <div className="text-center md:text-left">
@@ -122,7 +122,7 @@ export default function Home() {
                   className="bg-white text-black hover:bg-gray-200 font-bold px-8 py-6 rounded-full transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
                   onClick={() => window.location.href = 'mailto:suggestions@brownie.dev'}
                 >
-                  Enviar sugerencia
+                  {t.sendSuggestion}
                 </Button>
               </div>
             </div>
@@ -133,7 +133,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-[#150f15] border-t border-white/5 py-8 text-center relative z-10">
         <p className="text-gray-500 text-sm">
-          Powered by <span className="font-bold text-white hover:text-pink-400 transition-colors cursor-pointer">Brownie</span>
+          {t.poweredBy} <span className="font-bold text-white hover:text-pink-400 transition-colors cursor-pointer">Brownia</span>
         </p>
       </footer>
     </div>

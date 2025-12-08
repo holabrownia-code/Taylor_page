@@ -46,6 +46,17 @@ const translations = {
     countriesAvailable: "10 Eras Disponibles",
     difficultyLevels: "3 Niveles de Dificultad",
     uniqueQuestions: "300+ Preguntas Únicas",
+    // Main Page
+    testKnowledgeTitle: "Pon a prueba tu conocimiento Swiftie",
+    moreGames: "¿Más juegos?",
+    yourIdeas: "¡Tus Ideas Hacen la Magia!",
+    feedbackIntro: "Esta página es para Swifties, hecha por Swifties. Queremos saber de ti:",
+    feedbackQ1: "¿Cómo podemos mejorar la Trivia y el juego de Emojis?",
+    feedbackQ2: "¿Qué nuevos tipos de juegos te gustaría que agreguemos?",
+    feedbackQ2Sub: "(¿Un Memory Game? ¿Adivinar la letra? ¿Un Ranking de canciones?)",
+    thanks: "¡Gracias por ser parte del Mastermind de esta página!",
+    sendSuggestion: "Enviar sugerencia",
+    poweredBy: "Powered by",
   },
   en: {
     title: "Taylor Swift Trivia",
@@ -77,6 +88,17 @@ const translations = {
     countriesAvailable: "10 Eras Available",
     difficultyLevels: "3 Difficulty Levels",
     uniqueQuestions: "300+ Unique Questions",
+    // Main Page
+    testKnowledgeTitle: "Test your Swiftie knowledge",
+    moreGames: "More games?",
+    yourIdeas: "Your Ideas Make Magic!",
+    feedbackIntro: "This page is for Swifties, by Swifties. We want to hear from you:",
+    feedbackQ1: "How can we improve Trivia and Emoji game?",
+    feedbackQ2: "What new types of games would you like us to add?",
+    feedbackQ2Sub: "(A Memory Game? Guess the lyrics? Song Ranking?)",
+    thanks: "Thanks for being part of this page's Mastermind!",
+    sendSuggestion: "Send suggestion",
+    poweredBy: "Powered by",
   },
 }
 
