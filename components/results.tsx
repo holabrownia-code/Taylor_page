@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Trophy, Clock, Target, RotateCcw, Share2, Medal, ArrowLeft } from "lucide-react"
+import { getUserName } from "@/lib/user-storage"
 
 type Era =
   | "debut"
@@ -61,8 +62,9 @@ export default function Results({
   const { score, totalQuestions, correctAnswers, timeSpent } = results
   const accuracy = Math.round((correctAnswers / totalQuestions) * 100)
 
-  // Save to leaderboard
   useEffect(() => {
+    const userName = getUserName() || "Anonymous"
+
     const leaderboardData = {
       score,
       country,
@@ -71,6 +73,7 @@ export default function Results({
       timeSpent,
       date: new Date().toISOString(),
       id: Date.now().toString(),
+      userName, // Add user name to leaderboard entry
     }
 
     const existingData = localStorage.getItem("trivia-leaderboard")

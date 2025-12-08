@@ -20,7 +20,6 @@ type Country =
   | "evermore"
   | "midnights"
   | "ttpd"
-  | "showgirl"
 type Difficulty = "beginner" | "medium" | "advanced"
 
 interface GameProps {
@@ -38,7 +37,7 @@ interface GameProps {
 const eraColors = {
   debut: { bg: "from-[#3A5D23]/20 via-[#4A7D33]/15 to-[#3A5D23]/20", card: "bg-[#3A5D23]/10", accent: "#3A5D23" },
   fearless: { bg: "from-[#D4AF37]/20 via-[#E4BF47]/15 to-[#D4AF37]/20", card: "bg-[#D4AF37]/10", accent: "#D4AF37" },
-  "speak-now": { bg: "from-[#8E44AD]/20 via-[#9E54BD]/15 to-[#8E44AD]/20", card: "bg-[#8E44AD]/10", accent: "#8E44AD" },
+  speaknow: { bg: "from-[#8E44AD]/20 via-[#9E54BD]/15 to-[#8E44AD]/20", card: "bg-[#8E44AD]/10", accent: "#8E44AD" },
   red: { bg: "from-[#B22222]/20 via-[#C23232]/15 to-[#B22222]/20", card: "bg-[#B22222]/10", accent: "#B22222" },
   "1989": { bg: "from-[#87CEEB]/20 via-[#97DEFB]/15 to-[#87CEEB]/20", card: "bg-[#87CEEB]/10", accent: "#87CEEB" },
   reputation: { bg: "from-[#2C2C2C]/30 via-[#3C3C3C]/20 to-[#2C2C2C]/30", card: "bg-[#2C2C2C]/15", accent: "#2C2C2C" },
@@ -47,7 +46,6 @@ const eraColors = {
   evermore: { bg: "from-[#A0522D]/20 via-[#B0623D]/15 to-[#A0522D]/20", card: "bg-[#A0522D]/10", accent: "#A0522D" },
   midnights: { bg: "from-[#191970]/25 via-[#292980]/18 to-[#191970]/25", card: "bg-[#191970]/12", accent: "#191970" },
   ttpd: { bg: "from-[#5E1A1A]/25 via-[#6E2A2A]/18 to-[#5E1A1A]/25", card: "bg-[#5E1A1A]/12", accent: "#5E1A1A" },
-  showgirl: { bg: "from-[#FF7F00]/20 via-[#FF8F10]/15 to-[#FF7F00]/20", card: "bg-[#FF7F00]/10", accent: "#FF7F00" },
 }
 
 export default function Game({ country, difficulty, onGameComplete, onBackToHome }: GameProps) {
@@ -171,7 +169,7 @@ export default function Game({ country, difficulty, onGameComplete, onBackToHome
         return "Taylor Swift (Debut)"
       case "fearless":
         return "Fearless"
-      case "speak-now":
+      case "speaknow":
         return "Speak Now"
       case "red":
         return "Red"
@@ -189,8 +187,6 @@ export default function Game({ country, difficulty, onGameComplete, onBackToHome
         return "Midnights"
       case "ttpd":
         return "The Tortured Poets Department"
-      case "showgirl":
-        return "The Life of a Showgirl"
       default:
         return country
     }
@@ -300,11 +296,10 @@ export default function Game({ country, difficulty, onGameComplete, onBackToHome
             {/* Feedback */}
             {showFeedback && (
               <div
-                className={`text-center p-6 rounded-md ${
-                  isCorrect
-                    ? "bg-green-50 text-green-800 border border-green-200"
-                    : "bg-red-50 text-red-800 border border-red-200"
-                }`}
+                className={`text-center p-6 rounded-md ${isCorrect
+                  ? "bg-green-50 text-green-800 border border-green-200"
+                  : "bg-red-50 text-red-800 border border-red-200"
+                  }`}
               >
                 <div className="flex items-center justify-center gap-3 mb-3">
                   {isCorrect ? (

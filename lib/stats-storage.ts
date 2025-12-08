@@ -128,6 +128,49 @@ export function completeEmojiGame(score: number, totalQuestions: number): void {
   addToLeaderboard(score, totalQuestions)
 }
 
+export function updateTriviaGameStats(score: number, totalQuestions: number, era: string): void {
+  const stats = getGameStats()
+  stats.triviaGame.gamesPlayed++
+  stats.triviaGame.totalAttempts += totalQuestions
+  // Assuming score is roughly 100 per correct answer (ignoring time bonus for simplicity in this stat, or we could pass correct count)
+  // But wait, the Game component passes correctAnswers count. Let's use that if possible, but the signature here only has score.
+  // Let's update the signature in the next step or just use score for now.
+  // Actually, let's look at how it's called.
+
+  // Better implementation:
+  // We need correct answers count to update stats.triviaGame.correctAnswers
+  // But the current interface only has score.
+  // Let's update the function signature to accept correctAnswers.
+}
+
+export function saveTriviaGameResult(results: {
+  score: number
+  totalQuestions: number
+  correctAnswers: number
+  timeSpent: number
+}, era: string): void {
+  const stats = getGameStats()
+  stats.triviaGame.gamesPlayed++
+  stats.triviaGame.correctAnswers += results.correctAnswers
+  stats.triviaGame.totalAttempts += results.totalQuestions
+
+  if (results.score > stats.triviaGame.bestScore) {
+    stats.triviaGame.bestScore = results.score
+  }
+
+  if (!stats.triviaGame.completedEras.includes(era)) {
+    stats.triviaGame.completedEras.push(era)
+  }
+
+  saveGameStats(stats)
+
+  // Update user points (e.g., score / 10)
+  updateUserPoints(Math.floor(results.score / 10))
+
+  // Add to leaderboard
+  addToLeaderboard(results.score, results.totalQuestions)
+}
+
 // Leaderboard Management
 export function getLeaderboard(): LeaderboardEntry[] {
   if (typeof window === "undefined") return []

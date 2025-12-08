@@ -5,19 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Trophy, Medal, Award, ArrowLeft, Clock, Target } from "lucide-react"
-import ChileFlag from "@/components/flags/chile-flag"
-import PeruFlag from "@/components/flags/peru-flag"
-import BrazilFlag from "@/components/flags/brazil-flag"
-import ArgentinaFlag from "@/components/flags/argentina-flag"
-import ColombiaFlag from "@/components/flags/colombia-flag"
-import SpainFlag from "@/components/flags/spain-flag"
-import EnglandFlag from "@/components/flags/england-flag"
-import FranceFlag from "@/components/flags/france-flag"
-import GermanyFlag from "@/components/flags/germany-flag"
-import ItalyFlag from "@/components/flags/italy-flag"
-import MexicoFlag from "@/components/flags/mexico-flag"
-import UsaFlag from "@/components/flags/usa-flag"
+import { Trophy, Medal, Award, ArrowLeft, Clock, Target, User } from "lucide-react"
 
 interface LeaderboardEntry {
   id: string
@@ -35,10 +23,23 @@ interface LeaderboardEntry {
     | "italy"
     | "mexico"
     | "usa"
+    | "debut"
+    | "fearless"
+    | "speaknow"
+    | "red"
+    | "1989"
+    | "reputation"
+    | "lover"
+    | "folklore"
+    | "evermore"
+    | "midnights"
+    | "ttpd"
+    | "showgirl"
   difficulty: "beginner" | "medium" | "advanced"
   accuracy: number
   timeSpent: number
   date: string
+  userName?: string // Add optional userName field
 }
 
 interface LeaderboardProps {
@@ -144,7 +145,19 @@ export default function Leaderboard({ onBackToHome, language = "es" }: Leaderboa
       filter === "germany" ||
       filter === "italy" ||
       filter === "mexico" ||
-      filter === "usa"
+      filter === "usa" ||
+      filter === "debut" ||
+      filter === "fearless" ||
+      filter === "speaknow" ||
+      filter === "red" ||
+      filter === "1989" ||
+      filter === "reputation" ||
+      filter === "lover" ||
+      filter === "folklore" ||
+      filter === "evermore" ||
+      filter === "midnights" ||
+      filter === "ttpd" ||
+      filter === "showgirl"
     ) {
       filtered = data.filter((entry) => entry.country === filter)
     } else if (filter === "beginner" || filter === "medium" || filter === "advanced") {
@@ -178,86 +191,50 @@ export default function Leaderboard({ onBackToHome, language = "es" }: Leaderboa
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary-900 via-primary-800 to-primary-700 font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-800 to-purple-700 font-sans">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <Button
             variant="ghost"
             onClick={onBackToHome}
-            className="flex items-center gap-2 rounded-md hover:bg-primary-100"
+            className="flex items-center gap-2 text-white hover:bg-white/10 px-6 py-3 rounded-md transition-all duration-200"
           >
-            <ArrowLeft className="h-4 w-4 text-primary-100" />
+            <ArrowLeft className="h-5 w-5" />
             {t.backButton}
           </Button>
           <div className="text-center">
             <h1 className="text-3xl md:text-4xl font-bold text-white">{t.title}</h1>
-            <p className="text-primary-100">{t.subtitle}</p>
+            <p className="text-purple-100">{t.subtitle}</p>
           </div>
-          <div className="w-24"></div> {/* Spacer for centering */}
+          <div className="w-32"></div>
         </div>
 
         {/* Tabs */}
         <div className="max-w-4xl mx-auto">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-12">
-              <TabsTrigger value="all" className="rounded-md hover:bg-primary-100">
+            <TabsList className="grid w-full grid-cols-4 gap-2 bg-white/10 p-2 rounded-lg">
+              <TabsTrigger value="all" className="text-white data-[state=active]:bg-white/20">
                 {t.all}
               </TabsTrigger>
-              <TabsTrigger value="chile" className="rounded-md hover:bg-primary-100">
-                {t.chile}
-              </TabsTrigger>
-              <TabsTrigger value="peru" className="rounded-md hover:bg-primary-100">
-                {t.peru}
-              </TabsTrigger>
-              <TabsTrigger value="brazil" className="rounded-md hover:bg-primary-100">
-                {t.brazil}
-              </TabsTrigger>
-              <TabsTrigger value="argentina" className="rounded-md hover:bg-primary-100">
-                {t.argentina}
-              </TabsTrigger>
-              <TabsTrigger value="colombia" className="rounded-md hover:bg-primary-100">
-                {t.colombia}
-              </TabsTrigger>
-              <TabsTrigger value="spain" className="rounded-md hover:bg-primary-100">
-                {t.spain}
-              </TabsTrigger>
-              <TabsTrigger value="england" className="rounded-md hover:bg-primary-100">
-                {t.england}
-              </TabsTrigger>
-              <TabsTrigger value="france" className="rounded-md hover:bg-primary-100">
-                {t.france}
-              </TabsTrigger>
-              <TabsTrigger value="germany" className="rounded-md hover:bg-primary-100">
-                {t.germany}
-              </TabsTrigger>
-              <TabsTrigger value="italy" className="rounded-md hover:bg-primary-100">
-                {t.italy}
-              </TabsTrigger>
-              <TabsTrigger value="mexico" className="rounded-md hover:bg-primary-100">
-                {t.mexico}
-              </TabsTrigger>
-              <TabsTrigger value="usa" className="rounded-md hover:bg-primary-100">
-                {t.usa}
-              </TabsTrigger>
-              <TabsTrigger value="beginner" className="rounded-md hover:bg-primary-100">
+              <TabsTrigger value="beginner" className="text-white data-[state=active]:bg-white/20">
                 {t.beginner}
               </TabsTrigger>
-              <TabsTrigger value="medium" className="rounded-md hover:bg-primary-100">
+              <TabsTrigger value="medium" className="text-white data-[state=active]:bg-white/20">
                 {t.medium}
               </TabsTrigger>
-              <TabsTrigger value="advanced" className="rounded-md hover:bg-primary-100">
+              <TabsTrigger value="advanced" className="text-white data-[state=active]:bg-white/20">
                 {t.advanced}
               </TabsTrigger>
             </TabsList>
 
             <TabsContent value={activeTab} className="mt-6">
               {filteredData.length === 0 ? (
-                <Card>
+                <Card className="bg-white/95 backdrop-blur-sm border-0">
                   <CardContent className="text-center py-12">
                     <Trophy className="h-16 w-16 mx-auto text-gray-300 mb-4" />
-                    <h3 className="text-xl font-semibold text-primary-100 mb-2">{t.noScores}</h3>
-                    <p className="text-primary-200">{t.firstScore}</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-2">{t.noScores}</h3>
+                    <p className="text-gray-600">{t.firstScore}</p>
                   </CardContent>
                 </Card>
               ) : (
@@ -265,48 +242,36 @@ export default function Leaderboard({ onBackToHome, language = "es" }: Leaderboa
                   {filteredData.map((entry, index) => (
                     <Card
                       key={entry.id}
-                      className={`transition-all hover:shadow-md ${index < 3 ? "border-2 border-primary-200 bg-gradient-to-r from-primary-50 to-white" : "bg-white/95 backdrop-blur-sm shadow-soft border-0"}`}
+                      className={`transition-all hover:shadow-xl ${
+                        index < 3
+                          ? "border-2 border-yellow-400 bg-gradient-to-r from-yellow-50 to-white"
+                          : "bg-white/95 backdrop-blur-sm border-0"
+                      }`}
                     >
                       <CardContent className="p-6">
-                        <div className="flex items-center justify-between">
+                        <div className="flex items-center justify-between flex-wrap gap-4">
                           <div className="flex items-center gap-4">
                             <div className="flex items-center justify-center w-12 h-12">{getRankIcon(index)}</div>
                             <div className="flex items-center gap-3">
-                              <div className="w-10 h-6 rounded overflow-hidden">
-                                {entry.country === "chile" ? (
-                                  <ChileFlag />
-                                ) : entry.country === "peru" ? (
-                                  <PeruFlag />
-                                ) : entry.country === "brazil" ? (
-                                  <BrazilFlag />
-                                ) : entry.country === "argentina" ? (
-                                  <ArgentinaFlag />
-                                ) : entry.country === "colombia" ? (
-                                  <ColombiaFlag />
-                                ) : entry.country === "spain" ? (
-                                  <SpainFlag />
-                                ) : entry.country === "england" ? (
-                                  <EnglandFlag />
-                                ) : entry.country === "france" ? (
-                                  <FranceFlag />
-                                ) : entry.country === "germany" ? (
-                                  <GermanyFlag />
-                                ) : entry.country === "italy" ? (
-                                  <ItalyFlag />
-                                ) : entry.country === "mexico" ? (
-                                  <MexicoFlag />
-                                ) : entry.country === "usa" ? (
-                                  <UsaFlag />
-                                ) : null}
+                              <div className="flex items-center gap-2 bg-purple-100 px-3 py-1 rounded-full">
+                                <User className="h-4 w-4 text-purple-600" />
+                                <span className="font-semibold text-purple-900 text-sm">
+                                  {entry.userName || "Anonymous"}
+                                </span>
                               </div>
                               <div>
                                 <div className="flex items-center gap-2">
-                                  <span className="font-semibold capitalize text-white">{entry.country}</span>
-                                  <Badge variant="secondary" className="capitalize text-xs text-primary-100">
-                                    {entry.difficulty}
+                                  <span className="font-semibold capitalize text-gray-900">
+                                    {getCountryName(entry.country)}
+                                  </span>
+                                  <Badge
+                                    variant="secondary"
+                                    className="capitalize text-xs bg-purple-100 text-purple-900"
+                                  >
+                                    {getDifficultyLabel(entry.difficulty, language)}
                                   </Badge>
                                 </div>
-                                <div className="text-sm text-primary-200">{formatDate(entry.date)}</div>
+                                <div className="text-sm text-gray-600">{formatDate(entry.date)}</div>
                               </div>
                             </div>
                           </div>
@@ -314,17 +279,15 @@ export default function Leaderboard({ onBackToHome, language = "es" }: Leaderboa
                           <div className="flex items-center gap-6 text-right">
                             <div className="flex items-center gap-2">
                               <Target className="h-4 w-4 text-green-600" />
-                              <span className="text-sm font-medium text-primary-100">{entry.accuracy}%</span>
+                              <span className="text-sm font-medium text-gray-700">{entry.accuracy}%</span>
                             </div>
                             <div className="flex items-center gap-2">
                               <Clock className="h-4 w-4 text-blue-600" />
-                              <span className="text-sm font-medium text-primary-100">
-                                {formatTime(entry.timeSpent)}
-                              </span>
+                              <span className="text-sm font-medium text-gray-700">{formatTime(entry.timeSpent)}</span>
                             </div>
                             <div className="text-right">
-                              <div className="text-2xl font-bold text-white">{entry.score}</div>
-                              <div className="text-xs text-primary-200">{t.points}</div>
+                              <div className="text-2xl font-bold text-purple-900">{entry.score}</div>
+                              <div className="text-xs text-gray-600">{t.points}</div>
                             </div>
                           </div>
                         </div>
@@ -339,4 +302,43 @@ export default function Leaderboard({ onBackToHome, language = "es" }: Leaderboa
       </div>
     </div>
   )
+}
+
+function getCountryName(country: string): string {
+  const names: Record<string, string> = {
+    debut: "Debut",
+    fearless: "Fearless",
+    speaknow: "Speak Now",
+    red: "Red",
+    "1989": "1989",
+    reputation: "Reputation",
+    lover: "Lover",
+    folklore: "Folklore",
+    evermore: "Evermore",
+    midnights: "Midnights",
+    ttpd: "TTPD",
+    showgirl: "Showgirl",
+    chile: "Chile",
+    peru: "Perú",
+    brazil: "Brasil",
+    argentina: "Argentina",
+    colombia: "Colombia",
+    spain: "España",
+    england: "Inglaterra",
+    france: "Francia",
+    germany: "Alemania",
+    italy: "Italia",
+    mexico: "México",
+    usa: "USA",
+  }
+  return names[country] || country
+}
+
+function getDifficultyLabel(difficulty: string, language: "es" | "en"): string {
+  const labels: Record<string, Record<string, string>> = {
+    beginner: { es: "Principiante", en: "Beginner" },
+    medium: { es: "Intermedio", en: "Medium" },
+    advanced: { es: "Avanzado", en: "Advanced" },
+  }
+  return labels[difficulty]?.[language] || difficulty
 }

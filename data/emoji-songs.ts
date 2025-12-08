@@ -1839,7 +1839,6 @@ export const emojiSongs: EmojiSong[] = [
     difficulty: "Medio",
     explanation: "Star + lipstick + camera + sad for the cycle of fame",
   },
-
   // The Life of a Showgirl
   {
     id: "sg1",

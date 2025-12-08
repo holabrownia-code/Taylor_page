@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,7 +8,10 @@ import { ArrowLeft, Star } from "lucide-react"
 import Game from "@/components/game"
 import Results from "@/components/results"
 import LanguageSwitcher from "@/components/language-switcher"
+import UserRegistration from "@/components/user-registration"
 import { useLanguage } from "@/contexts/language-context"
+import { getUserName } from "@/lib/user-storage"
+import { saveTriviaGameResult } from "@/lib/stats-storage"
 import Image from "next/image"
 
 type Difficulty = "beginner" | "medium" | "advanced"
@@ -28,6 +31,8 @@ type Era =
 type View = "selection" | "game" | "results"
 
 export default function PlayPage() {
+  const [userName, setUserName] = useState<string | null>(null)
+  const [isCheckingUser, setIsCheckingUser] = useState(true)
   const [currentView, setCurrentView] = useState<View>("selection")
   const [selectedEra, setSelectedEra] = useState<Era | null>(null)
   const [selectedDifficulty, setSelectedDifficulty] = useState<Difficulty | null>(null)
@@ -36,6 +41,16 @@ export default function PlayPage() {
   const router = useRouter()
 
   const t = translations[language]
+
+  useEffect(() => {
+    const existingName = getUserName()
+    setUserName(existingName)
+    setIsCheckingUser(false)
+  }, [])
+
+  const handleRegistrationComplete = (name: string) => {
+    setUserName(name)
+  }
 
   const eras = [
     {
@@ -163,11 +178,11 @@ export default function PlayPage() {
       id: "showgirl" as const,
       name: { es: "The Life of a Showgirl", en: "The Life of a Showgirl" },
       color: "#FF7F00",
-      year: "TBA",
+      year: "2024",
       image: "/images/eras/showgirl.png",
       description: {
-        es: "Glamour, espectáculo, vida escénica detrás del telón",
-        en: "Glamour, spectacle, stage life behind the curtain",
+        es: "Glamour, espectáculo, la vida detrás del telón",
+        en: "Glamour, show business, life behind the curtain",
       },
     },
   ]
@@ -179,6 +194,9 @@ export default function PlayPage() {
   }
 
   const handleGameComplete = (results: any) => {
+    if (selectedEra) {
+      saveTriviaGameResult(results, selectedEra)
+    }
     setGameResults(results)
     setCurrentView("results")
   }
@@ -192,6 +210,18 @@ export default function PlayPage() {
     setSelectedEra(null)
     setSelectedDifficulty(null)
     setGameResults(null)
+  }
+
+  if (isCheckingUser) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-800 to-purple-700 font-sans flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    )
+  }
+
+  if (!userName) {
+    return <UserRegistration onComplete={handleRegistrationComplete} />
   }
 
   if (currentView === "game" && selectedEra && selectedDifficulty) {
@@ -220,13 +250,14 @@ export default function PlayPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 via-pink-800 to-purple-700 font-sans">
-      <LanguageSwitcher />
+      <div className="absolute top-4 right-4 z-50">
+        <LanguageSwitcher />
+      </div>
 
       <header className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-pink-400/20"></div>
         <div className="relative container mx-auto px-6 py-12">
           <div className="flex items-center justify-between mb-8">
-
             <Button
               onClick={goBack}
               variant="ghost"
