@@ -44,7 +44,10 @@ export default function Home() {
             onClick={() => router.push("/play")}
             className="group relative bg-[#1a1a1a] border-2 border-white/10 rounded-xl overflow-hidden hover:border-pink-500/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(236,72,153,0.3)] cursor-pointer"
           >
-            <div className="aspect-square relative flex flex-col items-center justify-center p-0 bg-[url('/images/trivia-game-card.jpg')] bg-cover bg-center">
+            <div
+              className="aspect-square relative flex flex-col items-center justify-center p-0 bg-cover bg-center"
+              style={{ backgroundImage: `url('/images/trivia-game-card${language === 'en' ? '-en' : ''}.jpg')` }}
+            >
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300"></div>
               {/* Removed Button and Overlay Text as requested, image is the button now */}
             </div>
@@ -55,7 +58,10 @@ export default function Home() {
             onClick={() => router.push("/emoji")}
             className="group relative bg-[#1a1a1a] border-2 border-white/10 rounded-xl overflow-hidden hover:border-purple-500/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(168,85,247,0.3)] cursor-pointer"
           >
-            <div className="aspect-square relative flex flex-col items-center justify-center p-0 bg-[url('/images/emoji-game-card.jpg')] bg-cover bg-center">
+            <div
+              className="aspect-square relative flex flex-col items-center justify-center p-0 bg-cover bg-center"
+              style={{ backgroundImage: `url('/images/emoji-game-card${language === 'en' ? '-en' : ''}.jpg')` }}
+            >
               <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-all duration-300"></div>
               {/* Removed Button and Overlay Text as requested, image is the button now */}
             </div>

@@ -24,7 +24,7 @@ const translations = {
     leaderboard: "Clasificación",
     countries: "Eras",
     progress: "Progreso",
-    countriesCount: "10 Eras",
+    countriesCount: "12 Eras",
     countriesDesc: "Explora todas las eras de Taylor",
     questionsCount: "300+ Preguntas",
     questionsDesc: "Contenido sobre música y cultura pop",
@@ -43,7 +43,7 @@ const translations = {
     readyForChallenge: "¿Lista para el Desafío?",
     testKnowledgeDesc:
       "Pon a prueba tus conocimientos sobre las eras de Taylor Swift, sus canciones y su impacto cultural. ¡Cada era tiene sus secretos esperando ser descubiertos!",
-    countriesAvailable: "10 Eras Disponibles",
+    countriesAvailable: "12 Eras Disponibles",
     difficultyLevels: "3 Niveles de Dificultad",
     uniqueQuestions: "300+ Preguntas Únicas",
     // Main Page
@@ -66,7 +66,7 @@ const translations = {
     leaderboard: "Leaderboard",
     countries: "Eras",
     progress: "Progress",
-    countriesCount: "10 Eras",
+    countriesCount: "12 Eras",
     countriesDesc: "Explore all of Taylor's eras",
     questionsCount: "300+ Questions",
     questionsDesc: "Content about music and pop culture",
@@ -85,7 +85,7 @@ const translations = {
     readyForChallenge: "Ready for the Challenge?",
     testKnowledgeDesc:
       "Test your knowledge about Taylor Swift's eras, her songs and cultural impact. Each era has its secrets waiting to be discovered!",
-    countriesAvailable: "10 Eras Available",
+    countriesAvailable: "12 Eras Available",
     difficultyLevels: "3 Difficulty Levels",
     uniqueQuestions: "300+ Unique Questions",
     // Main Page
