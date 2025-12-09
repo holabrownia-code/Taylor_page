@@ -126,7 +126,7 @@ export default function Home() {
               <div className="text-center md:text-left">
                 <Button
                   className="bg-white text-black hover:bg-gray-200 font-bold px-8 py-6 rounded-full transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(255,255,255,0.2)]"
-                  onClick={() => window.location.href = 'mailto:suggestions@brownie.dev'}
+                  onClick={() => router.push('/suggestions')}
                 >
                   {t.sendSuggestion}
                 </Button>
