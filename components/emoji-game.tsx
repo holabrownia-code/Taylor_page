@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { emojiSongs, type EmojiSong } from "@/data/emoji-songs"
-import { Filter, CheckCircle2, XCircle, Lightbulb, ArrowRight } from "lucide-react"
+import { Filter, CheckCircle2, XCircle, Lightbulb, ArrowRight, Clock } from "lucide-react"
 import { useLanguage } from "@/contexts/language-context"
 
 type Difficulty = "Facil" | "Medio" | "Dificil" | "Aleatorio"
@@ -21,6 +21,7 @@ export default function EmojiGame() {
   const [score, setScore] = useState(0)
   const [attempts, setAttempts] = useState(0)
   const [showHint, setShowHint] = useState(false)
+  const [timeLeft, setTimeLeft] = useState(30)
   const { language } = useLanguage()
 
   const translations = {
@@ -88,6 +89,7 @@ export default function EmojiGame() {
     setShowAnswer(false)
     setIsCorrect(false)
     setShowHint(false)
+    setTimeLeft(30)
   }
 
   useEffect(() => {
@@ -96,6 +98,19 @@ export default function EmojiGame() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameView])
+
+  // Timer effect
+  useEffect(() => {
+    if (gameView === "playing" && currentSong && !showAnswer && timeLeft > 0) {
+      const timer = setTimeout(() => setTimeLeft((prev) => prev - 1), 1000)
+      return () => clearTimeout(timer)
+    } else if (timeLeft === 0 && !showAnswer) {
+      // Time's up
+      setShowAnswer(true)
+      setIsCorrect(false)
+      setAttempts((a) => a + 1)
+    }
+  }, [timeLeft, showAnswer, gameView, currentSong])
 
   const handleDifficultySelect = (difficulty: Difficulty) => {
     setSelectedDifficulty(difficulty)
@@ -143,10 +158,13 @@ export default function EmojiGame() {
     return (
       <div className="min-h-[40vh] flex flex-col items-center justify-center">
         <div className="text-center mb-8">
-          <h1 className="text-5xl md:text-7xl font-black italic text-white mb-0 tracking-tighter uppercase">EMOJI ERA</h1>
-          <p className="text-orange-400 text-3xl md:text-5xl font-bold italic lowercase -mt-2" style={{ fontFamily: "cursive" }}>
-            guessing
-          </p>
+          <div className="max-w-2xl mx-auto mb-4 px-4">
+            <img
+              src="/images/emoji-era-title.png"
+              alt="Emoji Era Guessing"
+              className="w-full h-auto drop-shadow-[0_0_15px_rgba(255,165,0,0.3)]"
+            />
+          </div>
           <p className="text-white/80 mt-6 max-w-xl mx-auto">{t.subtitle}</p>
         </div>
 
@@ -194,6 +212,10 @@ export default function EmojiGame() {
         <Card className="p-6 md:p-10 bg-white/10 backdrop-blur-md">
           <div className="text-center mb-6">
             <div className="text-6xl mb-4">{currentSong.emojis}</div>
+            <div className="flex items-center justify-center gap-2 mb-4 text-orange-400 font-bold text-xl">
+              <Clock className="w-6 h-6" />
+              <span>{timeLeft}s</span>
+            </div>
             <p className="text-white/90 mb-4">{language === "es" ? "Introduce el título de la canción" : "Type the song title"}</p>
           </div>
 
