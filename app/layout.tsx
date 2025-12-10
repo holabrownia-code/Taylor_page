@@ -7,9 +7,9 @@ import { LanguageProvider } from "@/contexts/language-context"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Trivia Mundial",
+  title: "Swiftie tests",
   description: "Descubre el mundo a través de preguntas fascinantes sobre cultura, historia y geografía",
-    generator: 'v0.app'
+  generator: 'v0.app'
 }
 
 export default function RootLayout({
