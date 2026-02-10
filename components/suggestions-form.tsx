@@ -8,25 +8,62 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Slider } from "@/components/ui/slider"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Sparkles, Send } from "lucide-react"
+import { Sparkles, Send, AlertCircle } from "lucide-react"
+
+// Replace this with your Google Apps Script Web App URL
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwvq-DjN2JMpRsGwAbQBSxY1RRjNaGh-rDaAdU7c51oKftqdxtszbbFFR7CCZiXH5Vb/exec"
 
 export default function SuggestionsForm() {
     const { language, translations } = useLanguage()
     const t = translations[language]
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
+    const [error, setError] = useState<string | null>(null)
+
+    // Form states
+    const [formData, setFormData] = useState({
+        name: "",
+        email: "",
+        type: "improvement",
+        title: "",
+        details: "",
+        difficulty: 50
+    })
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
+        setError(null)
+
+        if (!SCRIPT_URL) {
+            setError(language === "es" ? "Por favor, configura la URL de Apps Script en el código." : "Please configure the Apps Script URL in the code.")
+            return
+        }
+
         setIsSubmitting(true)
 
-        // Simulate API call
-        await new Promise((resolve) => setTimeout(resolve, 1500))
+        try {
+            const response = await fetch(SCRIPT_URL, {
+                method: "POST",
+                mode: "no-cors", // Necessary for Apps Script
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    ...formData,
+                    language
+                }),
+            })
 
-        setIsSubmitting(false)
-        setIsSuccess(true)
+            // Since mode is 'no-cors', we won't get a proper response body or ok status
+            // But if it doesn't throw, it usually succeeded
+            setIsSuccess(true)
+        } catch (err) {
+            console.error("Submission error:", err)
+            setError(language === "es" ? "Hubo un error al enviar el formulario. Por favor, intenta de nuevo." : "There was an error submitting the form. Please try again.")
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     if (isSuccess) {
@@ -40,7 +77,17 @@ export default function SuggestionsForm() {
                     </div>
                     <h3 className="text-2xl font-bold text-white mb-2">{t.successMessage}</h3>
                     <Button
-                        onClick={() => setIsSuccess(false)}
+                        onClick={() => {
+                            setIsSuccess(false)
+                            setFormData({
+                                name: "",
+                                email: "",
+                                type: "improvement",
+                                title: "",
+                                details: "",
+                                difficulty: 50
+                            })
+                        }}
                         className="mt-6 bg-white text-black hover:bg-gray-200"
                     >
                         {t.backButton}
@@ -62,11 +109,21 @@ export default function SuggestionsForm() {
             </CardHeader>
             <CardContent>
                 <form onSubmit={handleSubmit} className="space-y-6">
+                    {/* Error Message */}
+                    {error && (
+                        <div className="p-3 rounded-md bg-red-500/20 border border-red-500/50 flex items-center gap-2 text-red-200 text-sm">
+                            <AlertCircle className="h-4 w-4" />
+                            {error}
+                        </div>
+                    )}
+
                     {/* Name */}
                     <div className="space-y-2">
                         <Label htmlFor="name">{t.formName}</Label>
                         <Input
                             id="name"
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                             placeholder="Taylor Swift"
                             className="bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-pink-500"
                         />
@@ -79,6 +136,8 @@ export default function SuggestionsForm() {
                             id="email"
                             type="email"
                             required
+                            value={formData.email}
+                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                             placeholder="swiftie@example.com"
                             className="bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-pink-500"
                         />
@@ -88,7 +147,11 @@ export default function SuggestionsForm() {
                     {/* Suggestion Type */}
                     <div className="space-y-2">
                         <Label>{t.formType}</Label>
-                        <RadioGroup defaultValue="improvement" className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <RadioGroup
+                            value={formData.type}
+                            onValueChange={(val) => setFormData({ ...formData, type: val })}
+                            className="grid grid-cols-1 md:grid-cols-3 gap-4"
+                        >
                             <div>
                                 <RadioGroupItem value="improvement" id="improvement" className="peer sr-only" />
                                 <Label
@@ -125,6 +188,8 @@ export default function SuggestionsForm() {
                         <Input
                             id="title"
                             required
+                            value={formData.title}
+                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                             className="bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-pink-500"
                         />
                     </div>
@@ -135,6 +200,8 @@ export default function SuggestionsForm() {
                         <Textarea
                             id="details"
                             required
+                            value={formData.details}
+                            onChange={(e) => setFormData({ ...formData, details: e.target.value })}
                             className="min-h-[120px] bg-white/5 border-white/10 text-white placeholder:text-gray-500 focus:border-pink-500"
                         />
                     </div>
@@ -144,7 +211,8 @@ export default function SuggestionsForm() {
                         <Label>{t.formDifficulty}</Label>
                         <div className="px-2">
                             <Slider
-                                defaultValue={[50]}
+                                value={[formData.difficulty]}
+                                onValueChange={(val) => setFormData({ ...formData, difficulty: val[0] })}
                                 max={100}
                                 step={50}
                                 className="py-4"
