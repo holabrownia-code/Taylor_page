@@ -21,7 +21,7 @@ export default function EmojiGame() {
   const [score, setScore] = useState(0)
   const [attempts, setAttempts] = useState(0)
   const [showHint, setShowHint] = useState(false)
-  const [timeLeft, setTimeLeft] = useState(30)
+  const [timeLeft, setTimeLeft] = useState(45)
   const { language } = useLanguage()
 
   const translations = {
@@ -89,7 +89,7 @@ export default function EmojiGame() {
     setShowAnswer(false)
     setIsCorrect(false)
     setShowHint(false)
-    setTimeLeft(30)
+    setTimeLeft(45)
   }
 
   useEffect(() => {
